@@ -87,8 +87,8 @@ class LindoGatito {
 }
 ```
 
->![NOTE]
->Además de las propiedades y métodos requeridos, he añadido:
+> ![NOTE]
+> Además de las propiedades y métodos requeridos, he añadido:
 >	1. La propiedad 'estaVivo' para controlar si el gato ha fallecido.
 >	2. Propiedades estáticas para realizar comprobaciones de raza y peso.
 >	3. Setters y getters de las propiedades de instancia.
