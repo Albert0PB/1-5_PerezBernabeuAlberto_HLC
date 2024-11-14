@@ -125,3 +125,11 @@ Y esto es lo que podemos observar desde la consola del navegador:
 
 ![Comprobación del funcionamiento](./images/comprobacion_consola.png)
 
+Desde la consola también podemos comprobar la visibilidad de las propiedades y 
+métodos públicos:
+
+![Propiedades y métodos públicos](./images/publicos.png)
+
+Y también la inaccesibilidad de las propiedades y métodos privados:
+
+![Propiedades y métodos privados](./images/privados.png)
