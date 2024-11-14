@@ -31,11 +31,11 @@ Los getters y los setters se añadieron en ECMAScript 5. Haz uso de ellos en una
             this._fechaNacimiento = new Date();
             this._estaVivo = true;
 
-            if( typeof(peso) === "number" && this.#pesoMinimo <= peso <= this.#pesoMaximo ) this._peso = peso;
-            else throw new Error("El peso indicado es erróneo. Debe ser un entero entre 1 y 15 (inclusive).");
-
             if( this.#razas.includes(raza) ) this._raza = raza;
             else throw new Error("La raza indicada no existe.");
+            
+            if( typeof(peso) === "number" && this.#pesoMinimo <= peso && peso <= this.#pesoMaximo ) this._peso = peso;
+            else throw new Error("El peso indicado es erróneo. Debe ser un entero entre 1 y 15 (inclusive).");
         }
 
         get nombre() {
@@ -53,6 +53,10 @@ Los getters y los setters se añadieron en ECMAScript 5. Haz uso de ellos en una
 
         get raza() {
             return this._raza;
+        }
+
+        get fechaNacimiento() {
+            return this._fechaNacimiento
         }
 
         juega() {
@@ -78,17 +82,21 @@ Los getters y los setters se añadieron en ECMAScript 5. Haz uso de ellos en una
         }
 
         #comprobarPeso() {
-            if( this._peso < this.#pesoMinimo ) console.log("El gatito murió de inanición.");
-            else if( this._peso > this.#pesoMaximo ) console.log("El gatito murió por sobrepeso.");
-            if( ! this.#pesoMinimo <= this._peso <= this.#pesoMaximo ) this._estaVivo = false;
+            if( this._peso < this.#pesoMinimo ) {
+                console.log("El gatito murió de inanición.");
+                this._estaVivo = false;
+            } else if( this._peso > this.#pesoMaximo ) {
+                console.log("El gatito murió por sobrepeso.");
+                this._estaVivo = false;
+            }
         }
     }
 
-    gatito1 = new LindoGatito("Lezo", "gato común", 5);
-    gatito1.juega();
-    gatito1.come();
-    console.log(gatito1.peso);
     try{
+        gatito1 = new LindoGatito("Lezo", "gato común", 5);
+        gatito1.juega();
+        gatito1.come();
+        console.log(gatito1.peso);
         gatito2 = new LindoGatito("Ámbar", "gato exótico", 23);
     }
     catch( excepcion ){

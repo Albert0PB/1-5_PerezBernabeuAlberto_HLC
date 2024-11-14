@@ -18,7 +18,7 @@ quince, muere.
 La implementación de esta clase con sus propiedades y métodos es la siguiente: 
 
 ```javascript
-class LindoGatito {
+    class LindoGatito {
 
         #pesoMinimo = 1;
         #pesoMaximo = 15;
@@ -33,11 +33,11 @@ class LindoGatito {
             this._fechaNacimiento = new Date();
             this._estaVivo = true;
 
-            if( typeof(peso) === "number" && this.#pesoMinimo <= peso <= this.#pesoMaximo ) this._peso = peso;
-            else throw new Error("El peso indicado es erróneo. Debe ser un entero entre 1 y 15 (inclusive).");
-
             if( this.#razas.includes(raza) ) this._raza = raza;
             else throw new Error("La raza indicada no existe.");
+            
+            if( typeof(peso) === "number" && this.#pesoMinimo <= peso && peso <= this.#pesoMaximo ) this._peso = peso;
+            else throw new Error("El peso indicado es erróneo. Debe ser un entero entre 1 y 15 (inclusive).");
         }
 
         get nombre() {
@@ -55,6 +55,10 @@ class LindoGatito {
 
         get raza() {
             return this._raza;
+        }
+
+        get fechaNacimiento() {
+            return this._fechaNacimiento
         }
 
         juega() {
@@ -80,11 +84,15 @@ class LindoGatito {
         }
 
         #comprobarPeso() {
-            if( this._peso < this.#pesoMinimo ) console.log("El gatito murió de inanición.");
-            else if( this._peso > this.#pesoMaximo ) console.log("El gatito murió por sobrepeso.");
-            if( ! this.#pesoMinimo <= this._peso <= this.#pesoMaximo ) this._estaVivo = false;
+            if( this._peso < this.#pesoMinimo ) {
+                console.log("El gatito murió de inanición.");
+                this._estaVivo = false;
+            } else if( this._peso > this.#pesoMaximo ) {
+                console.log("El gatito murió por sobrepeso.");
+                this._estaVivo = false;
+            }
         }
-}
+    }
 ```
 
 > [!NOTE]
@@ -93,5 +101,27 @@ class LindoGatito {
 > 2. Propiedades estáticas para realizar comprobaciones de raza y peso.
 > 3. Setters y getters de las propiedades de instancia.
 > 4. Un método privado 'comprobarPeso' que se encarga de determinar si el gato morirá.
+> 5. Lanzamientos de excepciones en caso de que se indiquen datos incorrectos.
 
+
+He creado dos instancias de la clase, comprobando con un bloque try...catch que se 
+lanzan excepciones cuando es necesario y que el funcionamiento de los objetos de esta 
+clase es adecuado:
+
+```javascript
+    gatito1 = new LindoGatito("Lezo", "gato común", 5);
+    gatito1.juega();
+    gatito1.come();
+    console.log(gatito1.peso);
+    try{
+        gatito2 = new LindoGatito("Ámbar", "gato exótico", 23);
+    }
+    catch( excepcion ){
+        console.log(excepcion)
+    }
+```
+
+Y esto es lo que podemos observar desde la consola del navegador:
+
+![Comprobación del funcionamiento](./images/comprobacion_consola.png)
 
